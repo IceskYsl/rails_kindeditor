@@ -21,6 +21,14 @@ Don't forget add this to your Gemfile
   gem "carrierwave", "~> 0.5.4"
   gem "rails_kindeditor"
 
+== MongoDB Support
+add this to your Gemfile
+	gem "mongoid", "~> 2.0"
+	gem "bson_ext", "~> 1.2"
+
+migration using the generator: 
+  rails generate rails_kindeditor:migration  -o mongoid
+                                                       
 == Usage
 
 Basically include <%= include_kindeditor_if_needed %> under the <head> element of your in your layout file:
