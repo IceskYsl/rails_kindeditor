@@ -23,8 +23,8 @@ Don't forget add this to your Gemfile
 
 == MongoDB Support
 add this to your Gemfile
-	gem "mongoid", "~> 2.0"
-	gem "bson_ext", "~> 1.2"
+  gem "mongoid", "~> 2.0"
+  gem "bson_ext", "~> 1.2"
 
 migration using the generator: 
   rails generate rails_kindeditor:migration  -o mongoid
