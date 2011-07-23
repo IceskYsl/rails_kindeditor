@@ -6,6 +6,10 @@ class Kindeditor::Asset
 
   validates_presence_of :asset
   before_save :update_asset_attributes
+  
+  field :asset, :type => String
+  field :file_size, :type => Integer
+  field :file_type, :type => String
 
   private
 

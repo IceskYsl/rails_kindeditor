@@ -6,8 +6,10 @@ module RailsKindeditor
     class_option :orm, :type => :string, :aliases => "-o", :default => "active_record",
      :desc => "Orm for rails,'active_record' or 'mongoid'."
 
-     def copy_app
+     def copy_app 
+       copy_controller
        copy_model
+       copy_uploaders
      end
 
    def self.next_migration_number(dirname)
@@ -18,16 +20,27 @@ module RailsKindeditor
      end
    end
    
-   protected
+   protected 
+   def copy_uploaders
+    template 'app/uploaders/kindeditor/file_uploader.rb',"app/uploaders/kindeditor/file_uploader.rb" 
+    template 'app/uploaders/kindeditor/image_uploader.rb',"app/uploaders/kindeditor/image_uploader.rb" 
+   end
+   
+   def copy_controller
+    template 'app/controllers/kindeditor/assets_controller.rb',"app/controllers/kindeditor/assets_controller.rb"
+   end
 
    def copy_model   
-     puts options[:orm].to_s
      case options[:orm].to_s
      when "active_record"
-       template 'app/models/kindeditor/asset.rb',"app/models/kindeditor/asset.rb"
+       template 'app/models/kindeditor/asset.rb',"app/models/kindeditor/asset.rb" 
+       template 'app/models/kindeditor/file.rb',"app/models/kindeditor/file.rb" 
+       template 'app/models/kindeditor/image.rb',"app/models/kindeditor/image.rb" 
        copy_migration
-     when "mongoid"
+     when "mongoid"                                                           
        template 'mongoid/kindeditor/asset.rb','app/models/kindeditor/asset.rb'
+       template 'mongoid/kindeditor/file.rb','app/models/kindeditor/file.rb'
+       template 'mongoid/kindeditor/image.rb','app/models/kindeditor/image.rb'
      end
    end   
    
