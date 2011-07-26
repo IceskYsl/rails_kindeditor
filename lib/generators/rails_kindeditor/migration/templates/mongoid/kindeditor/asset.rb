@@ -1,21 +1,25 @@
 require 'carrierwave/orm/mongoid'       
 
-class Kindeditor::Asset
+class Kindeditor::Asset 
+  self.collection_name = 'kindeditor_asset'     
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
   validates_presence_of :asset
   before_save :update_asset_attributes
   
-  field :asset, :type => String
+  mount_uploader :asset
   field :file_size, :type => Integer
   field :file_type, :type => String
 
   private
 
   def update_asset_attributes
-    self.file_size = asset.file.size
-    self.file_type = asset.file.content_type
+    if asset.present? && asset_changed?
+      self.content_type = asset.file.content_type
+      self.file_size = asset.file.size
+    end
   end
 end               
 
